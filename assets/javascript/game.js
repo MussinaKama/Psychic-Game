@@ -16,32 +16,41 @@ var lossesText = document.getElementById("losses");
 var guessesLeftText = document.getElementById("guesses-left");
 var youGuessSoFarText = document.getElementById("your-guess-so-far");
 
+var restart = function () {
+  guessedLetter = [];
+  guessesLeft  = 9;
+  computerGuess = options[Math.floor(Math.random() * options.length)];
+  
+}
 
 
+var computerGuess = options[Math.floor(Math.random() * options.length)];
+console.log(computerGuess);
 
 document.onkeyup = function (event) {
   var userGuess = event.key;
-  guessedLetter.push(userGuess);
+  guessedLetter.push(" " + userGuess);
 
-  var computerGuess = options[Math.floor(Math.random() * options.length)];
-  console.log(computerGuess);
 
-  var restart = function () {
-    guessedLetter = [];
-    guessedLeft  = 9;
-  }
 
   if (userGuess === computerGuess) {
 
     wins++;
-  
-    alert("You win!");
-
-  } else if (guessesLeft === 0) {
+    alert("You won!");
     restart();
-    
 
+  } else if (userGuess !== computerGuess) {
+    guessesLeft--;
+
+    if(guessesLeft === 0) {
+    
+       alert("You lost!");
+      restart();
+      losses++;
+    } 
+    
   } 
+  
 
   winsText.textContent = "Wins: " + wins;
   lossesText.textContent = "Losses: " + losses;
